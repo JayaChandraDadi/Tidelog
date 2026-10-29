@@ -1,0 +1,14 @@
+# Local MinIO for running Tidelog against S3-compatible storage:
+#   docker compose up -d
+#   export TIDELOG_S3_ENDPOINT=http://localhost:9000 AWS_ACCESS_KEY_ID=minioadmin AWS_SECRET_ACCESS_KEY=minioadmin
+#   mvn test            # also runs S3ObjectStoreTest against MinIO
+services:
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address :9001
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
